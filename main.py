@@ -9,7 +9,7 @@ def run_bot1():
     
     # Set environment variables for bot 1
     os.environ["BOT_TOKEN"] = "7408399689:AAGyXnXAIeja9qyg7eEPghKkmL4Z4OJy5-w"
-    os.environ["DATABASE_URL"] = ""
+    os.environ["DB_NAME"] = "T1"
     
     subprocess.call(["pip", "install", "-r", "requirements.txt"])
     subprocess.call(["python", "bot.py"])
@@ -21,7 +21,7 @@ def run_bot2():
 
     # Set environment variables for bot 2
     os.environ["BOT_TOKEN"] = "8113183687:AAG4EYlhk5jlSgHCobLIqjsKW_lUIseKVMs"
-    os.environ["DATABASE_URL"] = ""
+    os.environ["DB_NAME"] = "T2"
     
     subprocess.call(["pip", "install", "-r", "requirements.txt"])
     subprocess.call(["python", "bot.py"])
@@ -33,7 +33,7 @@ def run_bot3():
 
     # Set environment variables for bot 2
     os.environ["BOT_TOKEN"] = "7557297602:AAH6-43MKGE0umypUgeonsfk41wOrsDKCnM"
-    os.environ["DATABASE_URL"] = ""
+    os.environ["DB_NAME"] = "T3"
     
     subprocess.call(["pip", "install", "-r", "requirements.txt"])
     subprocess.call(["python", "bot.py"])

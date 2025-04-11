@@ -9,7 +9,7 @@ def install_requirements():
     os.chdir("temp-install")
     subprocess.call(["pip", "install", "-r", "requirements.txt"])
     os.chdir("/app")
-    subprocess.call(["rm", "-rf", "temp-install"] 
+    subprocess.call(["rm", "-rf", "temp-install"])
     
 
 def run_bot1():

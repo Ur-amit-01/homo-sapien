@@ -1,0 +1,5 @@
+deployments:
+- name: multi-bot-deployment
+  docker:
+    compose:
+      file: docker-compose.yml

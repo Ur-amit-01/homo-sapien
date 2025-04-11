@@ -8,7 +8,7 @@ import subprocess
 import os
 import re
 from multiprocessing import Process
-from logging import setup_logger, get_logger
+from logger_setup import setup_logger, get_logger
 
 # Base configuration
 BASE_DIR = "/app"

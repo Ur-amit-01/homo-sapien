@@ -20,7 +20,7 @@ def run_bot2():
     os.chdir("Post-Manager-Bot2")
 
     # Set environment variables for bot 2
-    os.environ["BOT_TOKEN"] = "8113642693:AAG9yJpZjyhKIP_nhsIIoc8ZsiTJ-gsudLU"
+    os.environ["BOT_TOKEN"] = "8113183687:AAG4EYlhk5jlSgHCobLIqjsKW_lUIseKVMs"
     os.environ["DATABASE_URL"] = ""
     
     subprocess.call(["pip", "install", "-r", "requirements.txt"])

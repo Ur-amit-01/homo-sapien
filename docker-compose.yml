@@ -9,7 +9,7 @@ services:
         REPO_URL: https://github.com/Ur-amit-01/Post-Manager.git
         REPO_BRANCH: main
     environment:
-      - TOKEN=$7408399689:AAGyXnXAIeja9qyg7eEPghKkmL4Z4OJy5-w
+      - BOT_TOKEN=$7408399689:AAGyXnXAIeja9qyg7eEPghKkmL4Z4OJy5-w
     restart: unless-stopped
 
   bot2:
@@ -20,5 +20,5 @@ services:
         REPO_URL: https://github.com/Ur-amit-01/Post-Manager.git
         REPO_BRANCH: main
     environment:
-      - TOKEN=$8113642693:AAG9yJpZjyhKIP_nhsIIoc8ZsiTJ-gsudLU
+      - BOT_TOKEN=$8113642693:AAG9yJpZjyhKIP_nhsIIoc8ZsiTJ-gsudLU
     restart: unless-stopped

@@ -22,24 +22,24 @@ logger = setup_logger('BotLauncher')
 
 # ====================== BOT CONFIGS ====================== #
 BOT1_CONFIG = {
-    "name": "Post-Manager-Bot1",
+    "name": "Team SAT",
     "token": "7408...",
     "db_name": "T1",
     "admins": "7150972327"
 }
 
 BOT2_CONFIG = {
-    "name": "Post-Manager-Bot2",
+    "name": "Batman",
     "token": "8113...",
     "db_name": "T2",
     "admins": "7150972327 1234567890"
 }
 
 BOT3_CONFIG = {
-    "name": "Post-Manager-Bot3",
-    "token": "7557...",
-    "db_name": "T3",
-    "admins": "7150972327"
+    "name": "Harshal",
+    "token": "7334882078:AAHrEbyz8YW-__QCGz8Om2JrNdvxW3NPhXE",
+    "db_name": "Harshal",
+    "admins": "7150972327 1084487776"
 }
 
 ACTIVE_BOTS = [BOT1_CONFIG, BOT2_CONFIG, BOT3_CONFIG]

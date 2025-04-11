@@ -1,0 +1,18 @@
+# Use the appropriate base image
+FROM python:3.9-slim as builder
+
+# Clone the repository
+ARG REPO_URL
+ARG REPO_BRANCH
+RUN apt-get update && apt-get install -y git
+RUN git clone --branch ${REPO_BRANCH} ${REPO_URL} /app
+
+# Build the bot
+WORKDIR /app
+RUN if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+# Runtime stage
+FROM python:3.9-slim
+COPY --from=builder /app /app
+WORKDIR /app
+CMD ["python", "main.py"]  # Adjust this to match your bot's entrypoint

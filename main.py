@@ -2,6 +2,16 @@ import subprocess
 import os
 from multiprocessing import Process
 
+# Install requirements once
+def install_requirements():
+    os.chdir("/app")
+    subprocess.call(["git", "clone", "https://github.com/Ur-amit-01/Post-Manager.git", "temp-install"])
+    os.chdir("temp-install")
+    subprocess.call(["pip", "install", "-r", "requirements.txt"])
+    os.chdir("/app")
+    subprocess.call(["rm", "-rf", "temp-install"] 
+    
+
 def run_bot1():
     os.chdir("/app")
     subprocess.call(["git", "clone", "https://github.com/Ur-amit-01/Post-Manager.git", "Post-Manager-Bot1"])
@@ -31,7 +41,7 @@ def run_bot3():
     subprocess.call(["git", "clone", "https://github.com/Ur-amit-01/Post-Manager.git", "Post-Manager-Bot3"])
     os.chdir("Post-Manager-Bot3")
 
-    # Set environment variables for bot 2
+    # Set environment variables for bot 3
     os.environ["BOT_TOKEN"] = "7557297602:AAH6-43MKGE0umypUgeonsfk41wOrsDKCnM"
     os.environ["DB_NAME"] = "T3"
     
@@ -39,6 +49,7 @@ def run_bot3():
     subprocess.call(["python", "bot.py"])
     
 if __name__ == "__main__":
+    install_requirements()
     p1 = Process(target=run_bot1)
     p2 = Process(target=run_bot2)
     p3 = Process(target=run_bot3)

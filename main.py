@@ -1,4 +1,3 @@
-
 """
 Multi-Bot Launcher
 ------------------
@@ -24,22 +23,25 @@ logger = setup_logger('BotLauncher')
 BOT1_CONFIG = {
     "name": "Team SAT",
     "token": "7408...",
-    "db_name": "T1",
-    "admins": "7150972327"
+    "db_name": "SAT_manager",
+    "admins": "7150972327 2031106491 1519459773",
+    "session_string": "BQFP49AAROLIHpH9tfjlrEewakOd-NndU3oDb9F1OJMp3cLaksypCJuuS1Qm8Bz6FjsIXzlyq1C2_Tz4gKj6vz2vZ-bElYZ8-0NLco6I74pWQOi2GQqBfvX9ls8EC3coHPY6YzfkEORGOt-i_Y05fw_UXE1NubilnLt1AOPA25gueZX-j8Jdf4c-gsA4i2qdaVjaWSNMba7F-aZ7W3KEFl3CO0KaVRqwFT9lDXEcZVc_UuYr0FG0f9qOmh7vyo-M7fr6lX7RzJjxR7AONx_9QB9rHWL3cogjbdhR9wGUoT2n7xbMKSJbtZH4L7W8H3NtaUl-svjOTmnHqQ4i11H3gsUMCbxR0QAAAAGVhUI_AA"  # Add session string if needed
 }
 
 BOT2_CONFIG = {
     "name": "Batman",
     "token": "8113...",
     "db_name": "T2",
-    "admins": "7150972327 1234567890"
+    "admins": "7150972327 1234567890",
+    "session_string": "BQFP49AAROLIHpH9tfjlrEewakOd-NndU3oDb9F1OJMp3cLaksypCJuuS1Qm8Bz6FjsIXzlyq1C2_Tz4gKj6vz2vZ-bElYZ8-0NLco6I74pWQOi2GQqBfvX9ls8EC3coHPY6YzfkEORGOt-i_Y05fw_UXE1NubilnLt1AOPA25gueZX-j8Jdf4c-gsA4i2qdaVjaWSNMba7F-aZ7W3KEFl3CO0KaVRqwFT9lDXEcZVc_UuYr0FG0f9qOmh7vyo-M7fr6lX7RzJjxR7AONx_9QB9rHWL3cogjbdhR9wGUoT2n7xbMKSJbtZH4L7W8H3NtaUl-svjOTmnHqQ4i11H3gsUMCbxR0QAAAAGVhUI_AA"
 }
 
 BOT3_CONFIG = {
     "name": "Harshal",
     "token": "7334882078:AAHrEbyz8YW-__QCGz8Om2JrNdvxW3NPhXE",
     "db_name": "Harshal",
-    "admins": "7150972327 1084487776"
+    "admins": "7150972327 1084487776",
+    "session_string": os.environ.get("HARSHAL_SESSION_STRING", "BQFP49AAROLIHpH9tfjlrEewakOd-NndU3oDb9F1OJMp3cLaksypCJuuS1Qm8Bz6FjsIXzlyq1C2_Tz4gKj6vz2vZ-bElYZ8-0NLco6I74pWQOi2GQqBfvX9ls8EC3coHPY6YzfkEORGOt-i_Y05fw_UXE1NubilnLt1AOPA25gueZX-j8Jdf4c-gsA4i2qdaVjaWSNMba7F-aZ7W3KEFl3CO0KaVRqwFT9lDXEcZVc_UuYr0FG0f9qOmh7vyo-M7fr6lX7RzJjxR7AONx_9QB9rHWL3cogjbdhR9wGUoT2n7xbMKSJbtZH4L7W8H3NtaUl-svjOTmnHqQ4i11H3gsUMCbxR0QAAAAGVhUI_AA")  # Example of getting from env
 }
 
 ACTIVE_BOTS = [BOT1_CONFIG, BOT2_CONFIG, BOT3_CONFIG]
@@ -64,16 +66,28 @@ def install_requirements():
         os.chdir(BASE_DIR)
         subprocess.run(["rm", "-rf", temp_dir], check=True)
 
-def setup_admin_variable(admin_ids):
-    """Process admin IDs and set environment variable"""
+def setup_environment_vars(bot_config):
+    """Setup all environment variables for the bot"""
     try:
+        # Process admin IDs
         admin_list = [int(admin) if ID_PATTERN.search(admin) else admin 
-                     for admin in admin_ids.split()]
+                    for admin in bot_config["admins"].split()]
         os.environ["ADMIN"] = " ".join(str(admin) for admin in admin_list)
-        get_logger('AdminSetup').info(f"Admin IDs processed: {admin_list}")
+        
+        # Set other environment variables
+        os.environ["BOT_TOKEN"] = bot_config["token"]
+        os.environ["DB_NAME"] = bot_config["db_name"]
+        os.environ["SESSION_STRING"] = bot_config.get("session_string", "")
+        
+        get_logger('EnvSetup').info(
+            f"Environment configured for {bot_config['name']}\n"
+            f"Admins: {admin_list}\n"
+            f"DB: {bot_config['db_name']}\n"
+            f"Session: {'set' if bot_config.get('session_string') else 'not set'}"
+        )
         return admin_list
     except Exception as e:
-        get_logger('AdminSetup').error(f"Error processing admin IDs: {str(e)}")
+        get_logger('EnvSetup').error(f"Error setting up environment: {str(e)}")
         raise
 
 def launch_bot(bot_config):
@@ -90,12 +104,7 @@ def launch_bot(bot_config):
         os.chdir(bot_dir)
         
         # Configure environment
-        os.environ["BOT_TOKEN"] = bot_config["token"]
-        os.environ["DB_NAME"] = bot_config["db_name"]
-        
-        # Setup admin variables
-        admin_list = setup_admin_variable(bot_config["admins"])
-        bot_logger.info(f"Configured admins: {admin_list}")
+        setup_environment_vars(bot_config)
         
         # Launch bot
         bot_logger.info("Launching bot process")
@@ -103,6 +112,11 @@ def launch_bot(bot_config):
     except Exception as e:
         bot_logger.error(f"Bot failed: {str(e)}")
         raise
+    finally:
+        # Clean up environment variables
+        for var in ["ADMIN", "BOT_TOKEN", "DB_NAME", "SESSION_STRING"]:
+            if var in os.environ:
+                del os.environ[var]
 
 # ====================== MAIN ====================== #
 def main():

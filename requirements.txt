@@ -2,4 +2,4 @@ requests
 gitpython
 Flask 
 gunicorn
-logging 
+

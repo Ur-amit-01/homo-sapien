@@ -8,13 +8,10 @@ import subprocess
 import os
 import re
 from multiprocessing import Process
-from app import *
 from logger_setup import setup_logger, get_logger
 
 # Base configuration
 BASE_DIR = "/app"
-#REPO_URL = "https://github.com/Ur-amit-01/Post-Manager.git"
-REPO_URL = f"https://{GITHUB_TOKEN}@github.com/Ur-amit-01/Post-Manager.git"
 ID_PATTERN = re.compile(r'^\d{5,}$')
 
 # Initialize main logger

@@ -32,7 +32,7 @@ def setup_logger(name, log_file='bot_launcher.log', level=logging.INFO):
     logger.addHandler(console_handler)
 
     return logger
-
+REPO_URL = "https://github.com/Ur-amit-01/Post-Manager.git"
 def get_logger(name):
     """Get an already configured logger instance"""
     return logging.getLogger(name)

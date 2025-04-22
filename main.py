@@ -8,8 +8,7 @@ import subprocess
 import os
 import re
 from multiprocessing import Process
-from logger_setup import setup_logger, get_logger
-
+from logger_setup import *
 # Base configuration
 BASE_DIR = "/app"
 ID_PATTERN = re.compile(r'^\d{5,}$')

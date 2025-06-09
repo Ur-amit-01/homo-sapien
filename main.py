@@ -35,12 +35,13 @@ BOT2_CONFIG = {
 }
 
 BOT3_CONFIG = {
-    "name": "Harshal",
-    "token": "7334882078:AAHrEbyz8YW-__QCGz8Om2JrNdvxW3NPhXE",
-    "db_name": "Harshal",
-    "admins": "7150972327 1084487776",
+    "name": "Morphine",
+    "token": "7934016506:AAHwP7D9NF2fd_2bH-4ELWM5is03_zdp6Ks",
+    "db_name": "Morphine",
+    "admins": "2031106491 7581732251",
     "session_string": SESSION_STRING
 }
+
 
 BOT4_CONFIG = {
     "name": "Lucky",
@@ -58,15 +59,8 @@ BOT5_CONFIG = {
     "session_string": SESSION_STRING
 }
 
-BOT6_CONFIG = {
-    "name": "Morphine",
-    "token": "7934016506:AAHwP7D9NF2fd_2bH-4ELWM5is03_zdp6Ks",
-    "db_name": "Morphine",
-    "admins": "2031106491 7581732251",
-    "session_string": SESSION_STRING
-}
 
-ACTIVE_BOTS = [BOT1_CONFIG, BOT2_CONFIG, BOT3_CONFIG, BOT4_CONFIG, BOT5_CONFIG, BOT6_CONFIG]
+ACTIVE_BOTS = [BOT1_CONFIG, BOT2_CONFIG, BOT3_CONFIG, BOT4_CONFIG, BOT5_CONFIG]
 
 
 # ====================== CORE FUNCTION ====================== #

@@ -22,7 +22,7 @@ BOT1_CONFIG = {
     "name": "Team SAT",
     "token": "7821967646:AAFHUS91204U6P6xqnBOdAefk42agRWzTc0",
     "db_name": "SAT_manager",
-    "admins": "7150972327 2031106491 1519459773 6803505727",
+    "admins": "1519459773 2031106491",
     "session_string": SESSION_STRING
 }
 
@@ -30,7 +30,7 @@ BOT2_CONFIG = {
     "name": "Batman",
     "token": "7269356488:AAF9kq5iuNWF00Jw997PRUqxtMzNqkHI7YU",
     "db_name": "Batman",
-    "admins": "5753557653",
+    "admins": "2031106491 5753557653",
     "session_string": SESSION_STRING
 }
 
@@ -47,7 +47,7 @@ BOT4_CONFIG = {
     "name": "Lucky",
     "token": "8012925939:AAE2EZk6-XAyXLseU-DGK7c3MMalD0a1Ryk",
     "db_name": "Lucky",
-    "admins": "7549453850 7150972327 7769891082 7923725459 2031106491 7570751418",
+    "admins": "2031106491 7549453850 7150972327 7769891082 7923725459 7570751418",
     "session_string": SESSION_STRING
 }
 

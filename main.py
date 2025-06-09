@@ -57,7 +57,16 @@ BOT5_CONFIG = {
     "admins": "2031106491 5076431214",
     "session_string": SESSION_STRING
 }
-ACTIVE_BOTS = [BOT1_CONFIG, BOT2_CONFIG, BOT3_CONFIG, BOT4_CONFIG, BOT5_CONFIG]
+
+BOT6_CONFIG = {
+    "name": "Morphine",
+    "token": "7934016506:AAHwP7D9NF2fd_2bH-4ELWM5is03_zdp6Ks",
+    "db_name": "Morphine",
+    "admins": "2031106491 7581732251",
+    "session_string": SESSION_STRING
+}
+
+ACTIVE_BOTS = [BOT1_CONFIG, BOT2_CONFIG, BOT3_CONFIG, BOT4_CONFIG, BOT5_CONFIG, BOT6_CONFIG]
 
 
 # ====================== CORE FUNCTION ====================== #

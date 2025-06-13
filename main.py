@@ -22,7 +22,7 @@ BOT1_CONFIG = {
     "name": "Team SAT",
     "token": "7821967646:AAFHUS91204U6P6xqnBOdAefk42agRWzTc0",
     "db_name": "SAT_manager",
-    "admins": "2031106491 1519459773 7941837031",
+    "admins": "2031106491 1519459773",
     "session_string": SESSION_STRING
 }
 

@@ -9,10 +9,11 @@ import os
 import re
 from multiprocessing import Process
 from logger_setup import *
-from config import *
+
 # Base configuration
 BASE_DIR = "/app"
 ID_PATTERN = re.compile(r'^\d{5,}$')
+SESSION_STRING = os.environ.get("SESSION_STRING", "")
 
 # Initialize main logger
 logger = setup_logger('BotLauncher')

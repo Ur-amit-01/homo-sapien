@@ -9,13 +9,13 @@ import os
 import re
 from multiprocessing import Process
 from logger_setup import *
+from config import *
 # Base configuration
 BASE_DIR = "/app"
 ID_PATTERN = re.compile(r'^\d{5,}$')
 
 # Initialize main logger
 logger = setup_logger('BotLauncher')
-SESSION_STRING = "BQFP49AAiVku9pI3VZylmYZ-LJi7gUSLC7iM873LFaQtV7ozu83PEvi3N6ypHhtLaSfTDW9CC7YMK5W6jwgFuJ0ThauW7GnSgkDR7ERtmJtGptXcgA0SX3eWvRepBMWfD3jhGTOK5CveP7UYp5JHsMDMeBAkmwic0R9YWXkwU8jl-bOO8pWisoZkjqOX2-kVacxifW9ZRe52O8zmNB3dF_VTcRCGvp58ZfzaJLHT5lE4_T_TVuHqZK9YUzzstNAHN7yDVZZc49kpRTaGeMhCxjCuSyGDO7iP0NCqzd-DJDr3qe7DT-WfhfqgNMjqoC1BjB5Ksm7qxGK10rPzfqU6vz_5bZSEnQAAAAGVhUI_AA"
 
 # ====================== BOT CONFIGS ====================== #
 BOT1_CONFIG = {

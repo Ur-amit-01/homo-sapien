@@ -3,4 +3,7 @@ requests
 gitpython
 Flask 
 gunicorn
-
+tgcrypto
+motor
+cachetools
+psutil

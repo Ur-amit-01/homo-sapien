@@ -1,7 +1,7 @@
 """
-Ultimate Multi-Bot Launcher v2.0
---------------------------------
-Single-process, low-memory bot system with all your existing configurations
+Fixed Multi-Bot Launcher v2.1
+----------------------------
+With guaranteed bot startup and message processing
 """
 
 import os
@@ -9,7 +9,7 @@ import asyncio
 import logging
 from dataclasses import dataclass
 from typing import List, Dict
-from pyrogram import Client, filters
+from pyrogram import Client, filters, idle
 from pyrogram.types import Message
 from motor.motor_asyncio import AsyncIOMotorClient
 from cachetools import TTLCache
@@ -19,16 +19,12 @@ import psutil
 # === Configuration Setup ================================================ #
 @dataclass
 class BotConfig:
-    """Enhanced configuration container with your actual values"""
     name: str
     token: str
     db_name: str
     admins: List[int]
     session_string: str = ""
-    memory_limit_mb: int = 50
 
-
-# Your actual bot configurations
 def load_configs() -> List[BotConfig]:
     return [
         BotConfig(
@@ -70,21 +66,16 @@ def load_configs() -> List[BotConfig]:
 
 # === Core System ======================================================== #
 class MasterBot:
-    """Complete implementation with your variables"""
     def __init__(self):
         self.bots: Dict[str, Client] = {}
         self.cache = TTLCache(maxsize=1000, ttl=300)
         self.logger = self._setup_logger()
-        
-        # MongoDB connection with your actual credentials
         self.db = AsyncIOMotorClient(
             os.getenv("MONGO_URI", "mongodb://localhost:27017"),
-            maxPoolSize=5,
-            connectTimeoutMS=30000
+            maxPoolSize=5
         )
 
     def _setup_logger(self):
-        """Configure logging matching your format"""
         logger = logging.getLogger("BotMaster")
         handler = logging.StreamHandler()
         handler.setFormatter(logging.Formatter(
@@ -95,96 +86,80 @@ class MasterBot:
         return logger
 
     async def initialize_bots(self, configs: List[BotConfig]):
-        """Initialize all bot clients with your settings"""
+        """Initialize with proper startup sequence"""
         for config in configs:
             client = Client(
                 name=config.name,
-                api_id=os.getenv("API_ID"),  # Set these in your environment
+                api_id=os.getenv("API_ID"),
                 api_hash=os.getenv("API_HASH"),
                 bot_token=config.token,
                 in_memory=True,
-                workers=2,
-                sleep_threshold=30
+                workers=2
             )
             
-            # Register handlers
+            # Add handlers before starting
             client.add_handler(self._create_handler(config))
             self.bots[config.name] = client
-            self.logger.info(f"Initialized {config.name}")
+            
+            # Start each client immediately after initialization
+            await client.start()
+            self.logger.info(f"{config.name} started successfully. Bot ID: {client.me.id}")
 
     def _create_handler(self, config: BotConfig):
-        """Message handler with your processing logic"""
         @Client.on_message(filters.all)
         async def handler(client: Client, message: Message):
             try:
                 bot_name = next(k for k,v in self.bots.items() if v == client)
+                self.logger.info(f"New message for {bot_name}")
                 
-                # Your actual processing logic would go here
-                self.logger.info(f"Processing message for {bot_name}")
-                
-                # Example: Admin check
+                # Your actual message processing here
                 if message.from_user and message.from_user.id in config.admins:
-                    await message.reply(f"Hello admin from {bot_name}!")
-                
+                    await message.reply(f"{bot_name} is working!")
+                    
             except Exception as e:
                 self.logger.error(f"Error in {config.name}: {str(e)}")
             finally:
-                # Memory cleanup
                 del message
                 import gc; gc.collect()
 
         return handler
 
-    async def start_system(self):
-        """Complete startup sequence"""
-        # Set memory limits (512MB soft, 1GB hard)
+    async def run(self):
+        """Main execution with proper lifecycle"""
         resource.setrlimit(
             resource.RLIMIT_AS,
             (512 * 1024 * 1024, 1024 * 1024 * 1024)
         )
         
-        # Start all bots
-        await asyncio.gather(*[client.start() for client in self.bots.values()])
+        configs = load_configs()
+        await self.initialize_bots(configs)
         
-        # Start monitoring
-        asyncio.create_task(self._monitor_resources())
-        
-        self.logger.info("All bots running. Memory usage: "
+        # Keep bots running
+        self.logger.info("All bots active. Memory: "
                       f"{psutil.Process(os.getpid()).memory_info().rss/1024/1024:.2f}MB")
+        
+        # This keeps the event loop running
+        await idle()
 
-    async def _monitor_resources(self):
-        """Your resource monitoring with actual thresholds"""
-        while True:
-            mem = psutil.Process(os.getpid()).memory_info().rss / (1024 * 1024)
-            if mem > 400:  # 400MB threshold
-                self.logger.warning(f"High memory: {mem:.2f}MB. Optimizing...")
-                await self._free_memory()
-            await asyncio.sleep(60)
+        # Cleanup on shutdown
+        await self.stop()
 
-    async def _free_memory(self):
-        """Actual memory optimization"""
-        import gc
-        gc.collect()
-        self.cache.clear()
-        self.logger.info("Performed memory cleanup")
+    async def stop(self):
+        """Proper shutdown"""
+        for name, client in self.bots.items():
+            if client.is_initialized:
+                await client.stop()
+                self.logger.info(f"Stopped {name}")
 
 # === Main Execution ===================================================== #
 async def main():
-    """Complete startup with your bots"""
-    # Initialize with your configs
     master = MasterBot()
-    await master.initialize_bots(load_configs())
-    
-    # Start the system
-    await master.start_system()
-    
-    # Keep running
-    await asyncio.Event().wait()
-
-if __name__ == "__main__":
     try:
-        asyncio.run(main())
-    except KeyboardInterrupt:
-        print("\nShutting down gracefully...")
+        await master.run()
     except Exception as e:
         logging.critical(f"Fatal error: {str(e)}", exc_info=True)
+    finally:
+        await master.stop()
+
+if __name__ == "__main__":
+    asyncio.run(main())

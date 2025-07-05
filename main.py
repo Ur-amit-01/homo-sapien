@@ -34,33 +34,33 @@ def load_configs() -> List[BotConfig]:
         BotConfig(
             name="Team SAT",
             token="6920460183:AAHKos4mftdTZDu19RE-41Tfhvhck-F6H2c",
-            db_name="SAT_manager",
+            db_name="A",
             admins=[2031106491, 1519459773],
             session_string=os.getenv("SESSION_STRING", "")
         ),
         BotConfig(
-            name="Batman",
+            name="B",
             token="6602223723:AAEfW7bAtToE_E9jOV1690c4-sOLQO5gxA8",
             db_name="Batman",
             admins=[2031106491, 5753557653],
             session_string=os.getenv("SESSION_STRING", "")
         ),
         BotConfig(
-            name="Morphine",
+            name="C",
             token="7805843798:AAFVUpjYdZOr2bND92ubxjqh2b_M4kSZkoo",
             db_name="Morphine",
             admins=[2031106491, 7581732251],
             session_string=os.getenv("SESSION_STRING", "")
         ),
         BotConfig(
-            name="Lucky",
+            name="D",
             token="8075405859:AAH-vh6v3dnoaCGGQe7cD2XQi5F9HdXw1Nk",
             db_name="Lucky",
             admins=[2031106491, 7549453850, 7150972327, 7769891082, 7923725459, 7570751418],
             session_string=os.getenv("SESSION_STRING", "")
         ),
         BotConfig(
-            name="AKSHAT",
+            name="E",
             token="7816211165:AAFqKE8p6-l8DNxJvLZeX4UO3eRQEYcN_Ho",
             db_name="AKSHAT",
             admins=[2031106491, 5076431214],
